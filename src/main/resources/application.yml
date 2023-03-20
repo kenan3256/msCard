@@ -1,0 +1,25 @@
+server:
+  port: 5432
+
+#logging:
+#  level:
+#    root: DEBUG
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sql_card
+    username: postgres
+    password: admin
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+web-q5:
+  app:
+    secret-key: bezKoderSecretKey
+    expiration-ms: 86400000
