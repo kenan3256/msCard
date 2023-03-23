@@ -2,10 +2,14 @@ package com.example.mscard.mscard.service;
 
 import com.example.mscard.mscard.entity.CardEntity;
 import com.example.mscard.mscard.repository.CardRepository;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CardService {
 
@@ -28,8 +32,12 @@ public class CardService {
     }
 
     public void deleteCardById(Long id) {
+        if (!cardRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Card with id " + id + " not found.");
+        }
         cardRepository.deleteById(id);
     }
+
 
     public CardEntity updateCard(CardEntity card, Long id) {
         CardEntity existingCard = cardRepository.findById(id).orElseThrow(() -> new RuntimeException("Card not found with id " + id));
